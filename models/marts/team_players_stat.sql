@@ -4,26 +4,46 @@
           "field": "ingestionDate",
           "data_type": "timestamp",
           "granularity": "day"
-        }
+        },
+        cluster_by = ["teamName"]
 )}}
 
-with team_players_stat_raw as (
-    select * from {{ ref('team_players_stat_raw_cleaned') }}
+with
+
+team_players_stat_raw AS (
+    SELECT * FROM {{ ref('team_players_stat_raw_cleaned') }}
+),
+
+goalKeepersStats AS (
+    SELECT
+        nationality,
+        STRUCT(
+            playerName,
+            appearances,
+            savePercentage,
+            cleanSheets
+        ) AS goalKeeperStatsStruct
+    FROM team_players_stat_raw
+    WHERE isGoalKeeperStatsExist is TRUE
+),
+
+goalKeeperStatsPerTeam AS (
+    SELECT
+        nationality,
+        ARRAY_AGG(goalKeeperStatsStruct ORDER BY goalKeeperStatsStruct.savePercentage DESC LIMIT 1)[OFFSET(0)] AS stats
+    FROM goalKeepersStats
+    GROUP BY
+        nationality
 )
 
 SELECT
-    nationality AS teamName,
+    statRaw.nationality AS teamName,
     nationalTeamKitSponsor,
     fifaRanking,
     SUM(goalsScored) AS teamTotalGoals,
     current_timestamp() AS ingestionDate,
 
-    STRUCT(
-        playerName,
-        appearances,
-        savePercentage,
-        cleanSheets
-    ) AS goalKeeper,
+    goalKeeperStatsPerTeam.stats AS goalKeeper,
 
     {{
         build_player_stats(
@@ -36,7 +56,7 @@ SELECT
             'playerName'
         )
     }}
-    AS topScorers
+    AS topScorers,
 
     {{
         build_player_stats(
@@ -114,21 +134,12 @@ SELECT
             'playerName'
         )
     }}
-    AS playersMostSuccessfulTackles,
-
-    {{
-        build_player_stats(
-            'tacklesPerNinety',
-            'appearances',
-            'brandSponsorAndUsed',
-            'club',
-            'position',
-            'playerDob',
-            'playerName'
-        )
-    }}
     AS playersMostSuccessfulTackles
 
-from team_players_stat_raw
+FROM team_players_stat_raw statRaw
+JOIN goalKeeperStatsPerTeam ON statRaw.nationality = goalKeeperStatsPerTeam.nationality
 GROUP BY
-    nationality
+    statRaw.nationality,
+    nationalTeamKitSponsor,
+    fifaRanking,
+    goalKeeperStatsPerTeam.stats

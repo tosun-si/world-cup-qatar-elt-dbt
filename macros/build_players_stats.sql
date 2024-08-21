@@ -14,7 +14,7 @@ STRUCT(
     MAX({{ stat_indicator }}) AS {{ stat_indicator }},
     ARRAY_AGG(
         IF(
-            {{ stat_indicator }} = 0 || {{ stat_indicator }} = 0.00,
+            {{ stat_indicator }} = 0 OR {{ stat_indicator }} = 0.00,
             NULL,
             STRUCT(
                 {{ appearances }},
