@@ -1,0 +1,10 @@
+name: 'world_cup_qatar_elt'
+profile: 'world_cup_qatar_elt'
+version: "0.1.0"
+
+models:
+  world_cup_qatar_elt:
+#    marts:
+#      +materialized: table
+#    staging:
+#      +materialized: ephemeral
