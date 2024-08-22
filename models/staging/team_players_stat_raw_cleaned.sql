@@ -22,4 +22,4 @@ SELECT
     nationalTeamKitSponsor,
     nationalTeamJerseyNumber,
     playerDob
-from `qatar_fifa_world_cup.team_players_stat_raw`
+from `{{ target.dataset }}.team_players_stat_raw`
