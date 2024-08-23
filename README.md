@@ -4,7 +4,9 @@ This repo shows a real world use case with DBT, BigQuery and Google Cloud.
 The raw and input data are represented by the Qatar Fifa World Cup Players stats, 
 some transformations are applied with the ELT pattern and DBT to apply aggregation and business transformations.
 
-## Publish the Docker image to Artifact Registry and deploy the Cloud Run job
+![dbt_elt_cloud_run_job.png](diagram%2Fdbt_elt_cloud_run_job.png)
+
+## Publish the Docker image to Artifact Registry and deploy the Cloud Run job with Cloud Build
 
 ```bash
 gcloud builds submit \

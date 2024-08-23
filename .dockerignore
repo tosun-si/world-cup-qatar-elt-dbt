@@ -1,6 +1,7 @@
 /.git
 /.github
 /file
+/diagram
 /dbt/logs
 /dbt/target
 /dbt/.user.yml
