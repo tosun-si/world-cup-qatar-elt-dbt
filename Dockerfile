@@ -4,6 +4,4 @@ WORKDIR /app
 
 COPY . .
 
-RUN dbt deps --profiles-dir dbt --project-dir dbt
-
 ENTRYPOINT ["dbt", "run", "--profiles-dir", "dbt", "--project-dir", "dbt" ]
