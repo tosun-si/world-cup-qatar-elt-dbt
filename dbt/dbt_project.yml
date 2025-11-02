@@ -1,6 +1,25 @@
 name: 'world_cup_qatar_elt'
+version: '0.1.0'
 profile: 'world_cup_qatar_elt'
-version: "0.1.0"
 
 models:
   world_cup_qatar_elt:
+    +materialized: view
+    external:
+      +materialized: external
+    staging:
+      +materialized: view
+    marts:
+      +materialized: table
+
+dispatch:
+  - macro_namespace: dbt
+    search_order: [ 'dbt_external_tables', 'dbt' ]
+
+seeds:
+  world_cup_qatar_elt:
+    +quote_columns: false
+    team_fifa_ranking:
+      +column_types:
+        teamName: string
+        fifaRanking: integer

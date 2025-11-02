@@ -13,7 +13,8 @@
 /LICENSE
 /pyproject.toml
 /poetry.lock
-/*.md
+/deploy-dbt-app-cloud-run-job.yaml
+/README.md
 /.idea
 *.iml
 *.egg-info

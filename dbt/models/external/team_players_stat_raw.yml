@@ -1,0 +1,48 @@
+version: 2
+
+sources:
+  - name: qatar_fifa_world_cup
+    tables:
+      - name: team_players_stat_raw
+        description: "External NDJSON table for World Cup team player stats."
+        external:
+          location: "gs://mazlum_dev/world_cup_team_stats/input/world_cup_team_players_stats_raw_*.json"
+          options:
+            format: "NEWLINE_DELIMITED_JSON"
+        columns:
+          - name: nationality
+            data_type: STRING
+          - name: fifaRanking
+            data_type: INTEGER
+          - name: nationalTeamKitSponsor
+            data_type: STRING
+          - name: position
+            data_type: STRING
+          - name: nationalTeamJerseyNumber
+            data_type: INTEGER
+          - name: playerDob
+            data_type: STRING
+          - name: club
+            data_type: STRING
+          - name: playerName
+            data_type: STRING
+          - name: appearances
+            data_type: STRING
+          - name: goalsScored
+            data_type: STRING
+          - name: assistsProvided
+            data_type: STRING
+          - name: dribblesPerNinety
+            data_type: STRING
+          - name: interceptionsPerNinety
+            data_type: STRING
+          - name: tacklesPerNinety
+            data_type: STRING
+          - name: totalDuelsWonPerNinety
+            data_type: STRING
+          - name: savePercentage
+            data_type: STRING
+          - name: cleanSheets
+            data_type: STRING
+          - name: brandSponsorAndUsed
+            data_type: STRING
