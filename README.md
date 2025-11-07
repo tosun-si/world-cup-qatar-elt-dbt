@@ -47,3 +47,18 @@ gcloud builds submit \
     --substitutions _REPO_NAME="$REPO_NAME",_JOB_NAME="$JOB_NAME",_IMAGE_TAG="$IMAGE_TAG",_SERVICE_ACCOUNT="$SERVICE_ACCOUNT" \
     --verbosity="debug" .
 ```
+
+### Deploy the DAG and conf in a local Airflow from Docker
+
+```bash
+docker run -it \
+    -p 8080:8080 \
+    -e GOOGLE_APPLICATION_CREDENTIALS=/root/.config/gcloud/application_default_credentials.json \
+    -e GCP_PROJECT=gb-poc-373711 \
+    -e DBT_PROJECT_DIR=/opt/airflow/dags/world_cup_qatar_elt_dbt_project \
+    -v $HOME/.config/gcloud/application_default_credentials.json:/root/.config/gcloud/application_default_credentials.json \
+    -v $(pwd)/world_cup_qatar_elt_dbt_dag:/opt/airflow/dags/world_cup_qatar_elt_dbt_dag \
+    -v $(pwd)/dbt:/opt/airflow/dags/world_cup_qatar_elt_dbt_project \
+    -v $(pwd)/config:/opt/airflow/config \
+    airflow-dev
+```

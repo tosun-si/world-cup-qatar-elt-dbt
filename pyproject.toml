@@ -11,3 +11,4 @@ python = "3.11.2"
 dbt-core = "1.8.4"
 dbt-bigquery = "1.8.2"
 pytest = "8.3.1"
+apache-airflow = { version = "3.1.1", extras = ["google"] }
