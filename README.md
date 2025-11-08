@@ -62,3 +62,19 @@ docker run -it \
     -v $(pwd)/config:/opt/airflow/config \
     airflow-dev
 ```
+
+### Run dbt docs
+
+Generate docs:
+
+```bash
+dbt docs generate --profiles-dir dbt --project-dir dbt
+```
+
+Run the UI:
+
+```bash
+dbt docs serve --profiles-dir dbt --project-dir dbt
+```
+
+
