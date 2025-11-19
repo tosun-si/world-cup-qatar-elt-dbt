@@ -1,5 +1,6 @@
 {{config(
         materialized='table',
+        tags=['mart'],
         partition_by={
           "field": "ingestionDate",
           "data_type": "timestamp",

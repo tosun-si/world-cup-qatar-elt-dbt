@@ -1,0 +1,15 @@
+version: 2
+
+models:
+  - name: team_players_stat
+    columns:
+      - name: teamName
+        description: "Team name"
+      - name: teamTotalGoals
+        description: "Team total goals"
+      - name: goalKeeper
+        description: "Goal keeper stats struct"
+      - name: topScorers
+        description: "Top scorers struct"
+      - name: bestPassers
+        description: "Best passers struct"

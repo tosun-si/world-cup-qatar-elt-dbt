@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: team_players_stat_raw_cleaned
+    columns:
+      - name: nationality
+        description: "Player nationality"
+      - name: goalsScored
+        description: "Goals scored for the player"
+      - name: assistsProvided
+        description: "Assist provided for the player"

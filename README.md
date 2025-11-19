@@ -63,6 +63,26 @@ docker run -it \
     airflow-dev
 ```
 
+### Run dbt locally
+
+Install dbt packages:
+
+```bash
+dbt deps --profiles-dir dbt --project-dir dbt
+```
+
+Run seeds:
+
+```bash
+dbt seed --profiles-dir dbt --project-dir dbt
+```
+
+Run the pipeline:
+
+```bash
+dbt run --profiles-dir dbt --project-dir dbt
+```
+
 ### Run dbt docs
 
 Generate docs:
