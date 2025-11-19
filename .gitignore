@@ -10,3 +10,4 @@ __pycache__
 *.user.yml
 logs
 dbt_packages
+dist
