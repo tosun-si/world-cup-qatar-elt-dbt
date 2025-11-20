@@ -91,6 +91,12 @@ Generate docs:
 dbt docs generate --profiles-dir dbt --project-dir dbt
 ```
 
+Generate lineage with Colibri (column level lineage):
+
+```bash
+colibri generate --manifest dbt/target/manifest.json --catalog dbt/target/catalog.json
+```
+
 Run the UI:
 
 ```bash
