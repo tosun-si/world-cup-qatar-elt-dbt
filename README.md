@@ -6,35 +6,26 @@ some transformations are applied with the ELT pattern and DBT to apply aggregati
 
 ![dbt_elt_cloud_run_job.png](diagram%2Fdbt_elt_cloud_run_job.png)
 
+## Prerequisites
+
+- Python 3.13.11
+- [uv](https://docs.astral.sh/uv/) as Python package manager
+- [direnv](https://direnv.net/) for automatic environment management
+
+## Setup
+
+Install dependencies:
+
+```bash
+uv sync
+```
+
+The `.envrc` file automatically creates and activates a virtual environment via `uv venv` when entering the project directory with direnv.
+
 ## Build the Docker image locally 
 
 ```bash
-docker build 
-```
-
-## Run the Docker image locally
-
-```bash
-docker run -it \
-    -e GOOGLE_PROJECT=$PROJECT_ID \
-    -e GOOGLE_REGION=$LOCATION \
-    -e IAC_BACKEND_URL=$IAC_BACKEND_URL \
-    -e TABLES_CONFIG_FILE="$TABLES_CONFIG_FILE_PATH" \
-    -e ROOT_TEST_FOLDER=$ROOT_TEST_FOLDER \
-    -e ROOT_TABLES_FOLDER="$ROOT_TABLES_FOLDER" \
-    -v $(pwd)/examples/tests:/opt/bigtesty/tests \
-    -v $(pwd)/examples/tests/tables:/opt/bigtesty/tests/tables \
-    -v $HOME/.config/gcloud:/opt/bigtesty/.config/gcloud \
-    groupbees/bigtesty test
-```
-
-```bash
-gcloud builds submit \
-    --project=$PROJECT_ID \
-    --region=$LOCATION \
-    --config deploy-dbt-app-cloud-run-job.yaml \
-    --substitutions _REPO_NAME="$REPO_NAME",_JOB_NAME="$JOB_NAME",_IMAGE_TAG="$IMAGE_TAG",_SERVICE_ACCOUNT="$SERVICE_ACCOUNT" \
-    --verbosity="debug" .
+docker build .
 ```
 
 ## Publish the Docker image to Artifact Registry and deploy the Cloud Run job with Cloud Build

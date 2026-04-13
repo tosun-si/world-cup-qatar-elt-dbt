@@ -1,15 +1,14 @@
-[tool.poetry]
+[project]
 name = "world-cup-qatar-elt-dbt"
 version = "0.1.0"
 description = "A real world use case of ELT with DBT and BigQuery, based on Qatar Fifa World Cup Data"
-package-mode = false
+requires-python = ">=3.13,<3.14"
 
-[tool.poetry.dependencies]
-python = "3.11.2"
-
-[tool.poetry.dev-dependencies]
-dbt-core = "1.10.15"
-dbt-bigquery = "1.10.3"
-dbt-colibri = "0.2.7"
-pytest = "9.0.1"
-apache-airflow = { version = "3.1.1", extras = ["google"] }
+[dependency-groups]
+dev = [
+    "dbt-core>=1.11.7",
+    "dbt-bigquery>=1.11.1",
+    "dbt-colibri>=0.3.0",
+    "pytest>=9.0.3",
+    "apache-airflow[google]>=3.2.0",
+]
